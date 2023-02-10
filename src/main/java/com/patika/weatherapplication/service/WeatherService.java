@@ -1,6 +1,6 @@
 package com.patika.weatherapplication.service;
 
-import com.patika.weatherapplication.model.Weather;
+
 
 import com.patika.weatherapplication.model.WeatherInformations;
 import com.patika.weatherapplication.utils.ApiKey;
@@ -22,7 +22,7 @@ public class WeatherService implements ApiService {
             "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}";
 
     private static final String ForecastUrl =
-            "http://api.openweathermap.org/data/2.5/forecast?q={city},{country}&APPID={key}";
+            "https://pro.openweathermap.org/data/2.5/forecast/climate?q={city name},{country code}&appid={API key}";
     private final String apiKey;
     private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
     private final RestTemplate restTemplate;
@@ -39,11 +39,11 @@ public class WeatherService implements ApiService {
 
 
     public WeatherInformations getWeatherCurrent(String city) {
-        logger.info("Current weather for {}: ", city);
         URI url = new UriTemplate(WeatherUrl).expand(city,this.apiKey);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<WeatherInformations> response = restTemplate.exchange(url, HttpMethod.GET, entity,WeatherInformations.class);
+        logger.info("Current weather for {} ", city);
         return response.getBody();
     }
 
