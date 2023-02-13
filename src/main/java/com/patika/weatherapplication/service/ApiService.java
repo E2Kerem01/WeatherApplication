@@ -10,8 +10,8 @@ import com.patika.weatherapplication.utils.WeatherDailyInformation;
 public interface ApiService {
 
 
-    public WeatherCurrentlyInformation getWeatherCurrent(String city);
-    public WeatherDailyInformation getWeatherWeekly(String city, Integer day);
-    public WeatherDailyInformation getWeatherMonthly(String city, String countryCode);
+    public WeatherCurrentlyInformation getWeatherCurrent(String city);                                                      // Anlık
+    public WeatherDailyInformation getWeatherWeekly(String city, Integer day);                                              // Haftalık
+    public WeatherDailyInformation getWeatherMonthly(String city, String countryCode);                                      // Aylık
 
 }

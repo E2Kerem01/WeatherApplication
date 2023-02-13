@@ -3,6 +3,8 @@ package com.patika.weatherapplication.controller;
 
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.patika.weatherapplication.shared.Views;
 import com.patika.weatherapplication.utils.WeatherCurrentlyInformation;
 import com.patika.weatherapplication.service.WeatherService;
 import com.patika.weatherapplication.utils.WeatherDailyInformation;
@@ -30,6 +32,7 @@ public class WeatherController {
     }
 
     @GetMapping("current/{city}")
+    @JsonView(Views.Base.class)
     public ResponseEntity<WeatherCurrentlyInformation> getWeatherCurrent(@Validated @PathVariable String city) {                        // Anlık Hava Durumu
 
             WeatherCurrentlyInformation informations = weatherService.getWeatherCurrent(city);
@@ -38,16 +41,17 @@ public class WeatherController {
     }
 
     @GetMapping("weekly/{city}/{day}")
-    public ResponseEntity<WeatherDailyInformation> getWeatherWeekly(@PathVariable String city,
+    @JsonView(Views.Base.class)
+    public ResponseEntity<WeatherDailyInformation> getWeatherWeekly(@Validated @PathVariable String city,
                                                                                 @PathVariable Integer day){                                 // Haftalık Hava Durumu
-        logger.info(city);
-        logger.info(String.valueOf(day));
+
         WeatherDailyInformation information = weatherService.getWeatherWeekly(city,day);
         return new ResponseEntity<>(information, HttpStatus.OK);
     }
 
     @GetMapping("monthly/{city}/{countryCode}")
-    public ResponseEntity<WeatherDailyInformation> getWeatherMonthly(@PathVariable String city,
+    @JsonView(Views.Base.class)
+    public ResponseEntity<WeatherDailyInformation> getWeatherMonthly(@Validated @PathVariable String city,
                                                                        @PathVariable String countryCode){                       // Aylık Hava Durumu
 
         WeatherDailyInformation information = weatherService.getWeatherMonthly(city,countryCode);
