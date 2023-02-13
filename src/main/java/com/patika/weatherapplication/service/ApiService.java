@@ -1,11 +1,15 @@
 package com.patika.weatherapplication.service;
 
-import com.patika.weatherapplication.utils.WeatherInformations;
+
+
+
+import com.patika.weatherapplication.utils.WeatherCurrentlyInformation;
+import com.patika.weatherapplication.utils.WeatherWeeklyInformation;
 
 public interface ApiService {
 
 
-    public WeatherInformations getWeatherCurrent(String city);
-    public WeatherInformations getWeatherWeekly(String city, Integer day);
+    public WeatherCurrentlyInformation getWeatherCurrent(String city);
+    public WeatherWeeklyInformation getWeatherWeekly(String city, Integer day);
 
 }

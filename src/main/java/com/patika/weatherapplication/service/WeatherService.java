@@ -2,8 +2,10 @@ package com.patika.weatherapplication.service;
 
 
 
-import com.patika.weatherapplication.utils.WeatherInformations;
+import com.patika.weatherapplication.utils.WeatherCurrentlyInformation;
 import com.patika.weatherapplication.utils.ApiKey;
+import com.patika.weatherapplication.utils.WeatherMonthlyInformation;
+import com.patika.weatherapplication.utils.WeatherWeeklyInformation;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,10 @@ public class WeatherService implements ApiService {
 
     private static final String WeeklyForecastUrl =
             "https://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}";
+
+    private static final String MonthlyForecastUrl =
+            "https://pro.openweathermap.org/data/2.5/forecast/climate?q={city name},{country code}&appid={API key}";
+
     private final String apiKey;
     private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
     private final RestTemplate restTemplate;
@@ -40,23 +46,32 @@ public class WeatherService implements ApiService {
 
 
 
-    public WeatherInformations getWeatherCurrent(String city)  {
+    public WeatherCurrentlyInformation getWeatherCurrent(String city)  {                                                        // Anlık Hava Durumu
         URI url = new UriTemplate(WeatherUrl).expand(city,this.apiKey);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<WeatherInformations> response = restTemplate.exchange(url, HttpMethod.GET, entity,WeatherInformations.class);
+        ResponseEntity<WeatherCurrentlyInformation> response = restTemplate.exchange(url, HttpMethod.GET, entity,WeatherCurrentlyInformation.class);
         logger.info("Current weather for {} ", city);
         return response.getBody();
     }
 
 
+    public WeatherWeeklyInformation getWeatherWeekly(String city, Integer day) {                                                // Haftalık Hava Durumu
 
-
-    public WeatherInformations getWeatherWeekly(String city, Integer day) {
         URI url = new UriTemplate(WeeklyForecastUrl).expand(city,day,this.apiKey);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<WeatherInformations> response = restTemplate.exchange(url,HttpMethod.GET,entity,WeatherInformations.class);
+        ResponseEntity<WeatherWeeklyInformation> response = restTemplate.exchange(url,HttpMethod.GET,entity,WeatherWeeklyInformation.class);
+        logger.info("Weekly weather for {} ", city);
+        return response.getBody();
+    }
+
+
+    public WeatherMonthlyInformation getWeatherMonthly(String city, String countryCode){                                        // Aylık Hava Durumu
+        URI url = new UriTemplate(MonthlyForecastUrl).expand(city,countryCode,this.apiKey);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String > entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<WeatherMonthlyInformation> response = restTemplate.exchange(url,HttpMethod.GET,entity,WeatherMonthlyInformation.class);
         logger.info("Weekly weather for {} ", city);
         return response.getBody();
     }

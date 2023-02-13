@@ -3,8 +3,10 @@ package com.patika.weatherapplication.controller;
 
 
 
-import com.patika.weatherapplication.utils.WeatherInformations;
+import com.patika.weatherapplication.utils.WeatherCurrentlyInformation;
 import com.patika.weatherapplication.service.WeatherService;
+import com.patika.weatherapplication.utils.WeatherMonthlyInformation;
+import com.patika.weatherapplication.utils.WeatherWeeklyInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,19 +31,25 @@ public class WeatherController {
     }
 
     @GetMapping("current/{city}")
-    public ResponseEntity<WeatherInformations> getWeatherCurrent(@Validated @PathVariable String city) {                        // Şehir bilgisi alınıp istek yapılan yer
+    public ResponseEntity<WeatherCurrentlyInformation> getWeatherCurrent(@Validated @PathVariable String city) {                        // Şehir bilgisi alınıp istek yapılan yer
 
-            WeatherInformations informations = weatherService.getWeatherCurrent(city);
+            WeatherCurrentlyInformation informations = weatherService.getWeatherCurrent(city);
             return new ResponseEntity<>(informations, HttpStatus.OK);
 
     }
 
     @GetMapping("weekly/{city}/{day}")
-    public ResponseEntity<WeatherInformations> getWeatherWeekly(@PathVariable String city, @PathVariable Integer day){
+    public ResponseEntity<WeatherWeeklyInformation> getWeatherWeekly(@PathVariable String city, @PathVariable Integer day){
         logger.info(city);
         logger.info(String.valueOf(day));
-        WeatherInformations informations = weatherService.getWeatherWeekly(city,day);
-        return new ResponseEntity<>(informations, HttpStatus.OK);
+        WeatherWeeklyInformation information = weatherService.getWeatherWeekly(city,day);
+        return new ResponseEntity<>(information, HttpStatus.OK);
+    }
+
+    @GetMapping("monthly/{city}/{countryCode}")
+    public ResponseEntity<WeatherMonthlyInformation> getWeatherMonthly(@PathVariable String city, @PathVariable String countryCode){
+        WeatherMonthlyInformation information = weatherService.getWeatherMonthly(city,countryCode);
+        return new ResponseEntity<>(information, HttpStatus.OK);
     }
 
 
