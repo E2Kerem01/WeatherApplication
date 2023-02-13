@@ -2,7 +2,7 @@ package com.patika.weatherapplication.service;
 
 
 
-import com.patika.weatherapplication.model.WeatherInformations;
+import com.patika.weatherapplication.utils.WeatherInformations;
 import com.patika.weatherapplication.utils.ApiKey;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -21,8 +21,8 @@ public class WeatherService implements ApiService {
     private static final String WeatherUrl =
             "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}";
 
-    private static final String ForecastUrl =
-            "https://pro.openweathermap.org/data/2.5/forecast/climate?q={city name},{country code}&appid={API key}";
+    private static final String WeeklyForecastUrl =
+            "https://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}";
     private final String apiKey;
     private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
     private final RestTemplate restTemplate;
@@ -30,15 +30,17 @@ public class WeatherService implements ApiService {
 
 
 
+
     public WeatherService(RestTemplateBuilder restTemplateBuilder, HttpHeaders httpHeaders, ApiKey apiKey) {
         this.restTemplate = restTemplateBuilder.build();
         this.httpHeaders = httpHeaders;
         this.apiKey = apiKey.getApi().getKey();
+
     }
 
 
 
-    public WeatherInformations getWeatherCurrent(String city) {
+    public WeatherInformations getWeatherCurrent(String city)  {
         URI url = new UriTemplate(WeatherUrl).expand(city,this.apiKey);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
@@ -47,6 +49,17 @@ public class WeatherService implements ApiService {
         return response.getBody();
     }
 
+
+
+
+    public WeatherInformations getWeatherWeekly(String city, Integer day) {
+        URI url = new UriTemplate(WeeklyForecastUrl).expand(city,day,this.apiKey);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<WeatherInformations> response = restTemplate.exchange(url,HttpMethod.GET,entity,WeatherInformations.class);
+        logger.info("Weekly weather for {} ", city);
+        return response.getBody();
+    }
 
 
 }

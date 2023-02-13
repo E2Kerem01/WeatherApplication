@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 @EnableConfigurationProperties(ApiKey.class)
@@ -14,12 +13,12 @@ import org.springframework.web.client.RestTemplate;
 public class WeatherApplication {
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate(){                                                                                     // RestTemplate bean tanımlandı.
         return new RestTemplate();
     }
 
     @Bean
-    public HttpHeaders httpHeaders(){
+    public HttpHeaders httpHeaders(){                                                                                       // httpHeaders bean tanımlandı.
         return new HttpHeaders();
     }
 
