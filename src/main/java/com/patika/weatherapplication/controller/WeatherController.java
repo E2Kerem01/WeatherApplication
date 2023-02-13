@@ -31,7 +31,7 @@ public class WeatherController {
     }
 
     @GetMapping("current/{city}")
-    public ResponseEntity<WeatherCurrentlyInformation> getWeatherCurrent(@Validated @PathVariable String city) {                        // Şehir bilgisi alınıp istek yapılan yer
+    public ResponseEntity<WeatherCurrentlyInformation> getWeatherCurrent(@Validated @PathVariable String city) {                        // Anlık Hava Durumu
 
             WeatherCurrentlyInformation informations = weatherService.getWeatherCurrent(city);
             return new ResponseEntity<>(informations, HttpStatus.OK);
@@ -39,7 +39,8 @@ public class WeatherController {
     }
 
     @GetMapping("weekly/{city}/{day}")
-    public ResponseEntity<WeatherWeeklyInformation> getWeatherWeekly(@PathVariable String city, @PathVariable Integer day){
+    public ResponseEntity<WeatherWeeklyInformation> getWeatherWeekly(@PathVariable String city,
+                                                                     @PathVariable Integer day){                                 // Haftalık Hava Durumu
         logger.info(city);
         logger.info(String.valueOf(day));
         WeatherWeeklyInformation information = weatherService.getWeatherWeekly(city,day);
@@ -47,7 +48,9 @@ public class WeatherController {
     }
 
     @GetMapping("monthly/{city}/{countryCode}")
-    public ResponseEntity<WeatherMonthlyInformation> getWeatherMonthly(@PathVariable String city, @PathVariable String countryCode){
+    public ResponseEntity<WeatherMonthlyInformation> getWeatherMonthly(@PathVariable String city,
+                                                                       @PathVariable String countryCode){                       // Haftalık Hava Durumu
+
         WeatherMonthlyInformation information = weatherService.getWeatherMonthly(city,countryCode);
         return new ResponseEntity<>(information, HttpStatus.OK);
     }
