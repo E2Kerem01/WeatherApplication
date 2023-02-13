@@ -8,9 +8,5 @@ public interface Views {
 
     }
 
-    class Sensitive extends Base {
-
-    }
-
 
 }
