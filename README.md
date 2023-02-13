@@ -18,5 +18,10 @@ https://weatherstack.com/
 
 * Doğru bir API structure çıkarmak. Model veya parametrelerinizde validasyonlar yapmak.Exception handling işlemlerini yapmak.
 
+## Anlık Hava Durumu Bilgisi Postman
 ![image](https://user-images.githubusercontent.com/62817020/218582276-fcb98631-c424-42d7-babd-ae0cd73162fa.png)
+
+## Hata Mesajı (ErrorHandler)
+![image](https://user-images.githubusercontent.com/62817020/218585416-c4e2986d-39a6-4247-88ba-928e467d854b.png)
+
 
