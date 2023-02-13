@@ -12,6 +12,7 @@ public class WeatherDailyInformation {
 
     @JsonView(Views.Base.class)
     WeatherDaily city;
+
     @JsonView(Views.Base.class)
     WeatherDailyTempInformation temp;
 }
