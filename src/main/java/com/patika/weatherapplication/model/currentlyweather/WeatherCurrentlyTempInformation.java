@@ -15,10 +15,10 @@ public class WeatherCurrentlyTempInformation {
         private Integer humidity;
         private Integer visibility;
 
-
-        public String getCelciusTemperature(){
+        public String getCelciusTemperature(){                                                                                         // Celcius cinsinde çıktıya eklenmesi
                 Double celciusTemp = this.temp - 272.15;
                 return String.format("%4.2f", celciusTemp);
         }
+
 
 }
