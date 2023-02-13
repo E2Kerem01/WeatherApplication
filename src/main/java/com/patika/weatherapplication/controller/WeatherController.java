@@ -5,8 +5,7 @@ package com.patika.weatherapplication.controller;
 
 import com.patika.weatherapplication.utils.WeatherCurrentlyInformation;
 import com.patika.weatherapplication.service.WeatherService;
-import com.patika.weatherapplication.utils.WeatherMonthlyInformation;
-import com.patika.weatherapplication.utils.WeatherWeeklyInformation;
+import com.patika.weatherapplication.utils.WeatherDailyInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -39,19 +38,19 @@ public class WeatherController {
     }
 
     @GetMapping("weekly/{city}/{day}")
-    public ResponseEntity<WeatherWeeklyInformation> getWeatherWeekly(@PathVariable String city,
-                                                                     @PathVariable Integer day){                                 // Haftalık Hava Durumu
+    public ResponseEntity<WeatherDailyInformation> getWeatherWeekly(@PathVariable String city,
+                                                                                @PathVariable Integer day){                                 // Haftalık Hava Durumu
         logger.info(city);
         logger.info(String.valueOf(day));
-        WeatherWeeklyInformation information = weatherService.getWeatherWeekly(city,day);
+        WeatherDailyInformation information = weatherService.getWeatherWeekly(city,day);
         return new ResponseEntity<>(information, HttpStatus.OK);
     }
 
     @GetMapping("monthly/{city}/{countryCode}")
-    public ResponseEntity<WeatherMonthlyInformation> getWeatherMonthly(@PathVariable String city,
-                                                                       @PathVariable String countryCode){                       // Haftalık Hava Durumu
+    public ResponseEntity<WeatherDailyInformation> getWeatherMonthly(@PathVariable String city,
+                                                                       @PathVariable String countryCode){                       // Aylık Hava Durumu
 
-        WeatherMonthlyInformation information = weatherService.getWeatherMonthly(city,countryCode);
+        WeatherDailyInformation information = weatherService.getWeatherMonthly(city,countryCode);
         return new ResponseEntity<>(information, HttpStatus.OK);
     }
 
