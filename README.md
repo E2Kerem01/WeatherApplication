@@ -17,3 +17,6 @@ https://weatherstack.com/
 ## Sizden beklenenler
 
 * Doğru bir API structure çıkarmak. Model veya parametrelerinizde validasyonlar yapmak.Exception handling işlemlerini yapmak.
+
+![image](https://user-images.githubusercontent.com/62817020/218582276-fcb98631-c424-42d7-babd-ae0cd73162fa.png)
+
