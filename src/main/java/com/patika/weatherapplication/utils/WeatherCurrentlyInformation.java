@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class WeatherCurrentlyInformation {
 
+
     @JsonView(Views.Base.class)
     List<Weather> weather;
 
